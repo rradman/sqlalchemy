@@ -100,8 +100,11 @@ The encoding for the above password can be generated using
 `urllib.parse <https://docs.python.org/3/library/urllib.parse.html>`_::
 
   >>> import urllib.parse
-  >>> urllib.parse.quote_plus("kx@jj5/g")
+  >>> urllib.parse.quote_plus("kx@jj5/g").replace("%", "%%")
   'kx%40jj5%2Fg'
+
+If the password contains percent('%') character, it must be replaced with double percent('%%')::
+  >>> urllib.parse.quote_plus("%kx@jj5/g").replace("%", "%%")
 
 The URL may then be passed as a string to :func:`_sa.create_engine`::
 
